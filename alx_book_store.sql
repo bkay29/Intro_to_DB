@@ -14,7 +14,7 @@ CREATE TABLE `Authors` (
 CREATE TABLE `Customers` (
   `customer_id` INT NOT NULL AUTO_INCREMENT,
   `customer_name` VARCHAR(215) NOT NULL,
-  `email` VARCHAR(215) NOT NULL,
+  `email` VARCHAR(215) NOT NULL UNIQUE,
   `address` TEXT,
   PRIMARY KEY (`customer_id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4;
@@ -24,7 +24,7 @@ CREATE TABLE `Books` (
   `book_id` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(130) NOT NULL,
   `author_id` INT NOT NULL,
-  `price` DOUBLE NOT NULL,
+  `price` DECIMAL(10,2) NOT NULL,
   `publication_date` DATE,
   PRIMARY KEY (`book_id`),
   INDEX `idx_books_author_id` (`author_id`),
@@ -49,11 +49,11 @@ CREATE TABLE `Orders` (
 
 -- ORDER_DETAILS
 CREATE TABLE `Order_Details` (
-  `orderdetailid` INT NOT NULL AUTO_INCREMENT,
+  `orderdetail_id` INT NOT NULL AUTO_INCREMENT,
   `order_id` INT NOT NULL,
   `book_id` INT NOT NULL,
-  `quantity` DOUBLE NOT NULL,
-  PRIMARY KEY (`orderdetailid`),
+  `quantity` INT NOT NULL,
+  PRIMARY KEY (`orderdetail_id`),
   INDEX `idx_order_details_order_id` (`order_id`),
   INDEX `idx_order_details_book_id` (`book_id`),
   CONSTRAINT `fk_order_details_order`
